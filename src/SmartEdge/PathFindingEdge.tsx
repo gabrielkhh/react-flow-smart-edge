@@ -76,6 +76,8 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 		roundCoordinatesTo
 	)
 
+	console.log("Testing")
+
 	const source: PointInfo = {
 		x: sourceX,
 		y: sourceY,
