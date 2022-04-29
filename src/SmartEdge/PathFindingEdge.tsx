@@ -138,6 +138,10 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	// 	gridRatio
 	// )
 
+	console.log(labelStyle + labelShowBg + labelBgStyle +
+		labelBgPadding +
+		labelBgBorderRadius)
+
 	// const text = label ? (
 	// 	<EdgeText
 	// 		x={labelX}
