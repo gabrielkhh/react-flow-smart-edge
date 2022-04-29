@@ -1,5 +1,5 @@
-import React, { memo } from 'react'
-import { EdgeText } from 'react-flow-renderer'
+import React, { memo, useRef, useState } from 'react'
+import { EdgeText, getSmoothStepPath, getEdgeCenter, EdgeSmoothStepProps } from 'react-flow-renderer'
 import { createGrid, getBoundingBoxes, gridToGraphPoint } from '../functions'
 import type {
 	PointInfo,
@@ -51,6 +51,13 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 		options
 	} = props
 
+	const foreignObjectWidth = 125
+	const foreignObjectHeight = 50
+
+	const [edgeCenterX, edgeCenterY] = getEdgeCenter({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition })
+	const [calculatedObjectHeight, setObjectHeight] = useState(foreignObjectHeight)
+	const bodyRef = useRef(null)
+
 	const {
 		gridRatio,
 		nodePadding,
@@ -95,10 +102,10 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	const { fullPath, smoothedPath } = generatePath(grid, start, end)
 
 	/*
-    Use the fallback Edge if no path was found.
-    length = 0: no path was found
-    length = 1: starting and ending points are the same
-    length = 2: a single straight line from point A to point B
+	Use the fallback Edge if no path was found.
+	length = 0: no path was found
+	length = 1: starting and ending points are the same
+	length = 2: a single straight line from point A to point B
   */
 	if (smoothedPath.length <= 2) {
 		return <FallbackEdge {...props} />
@@ -121,25 +128,25 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 
 	// The Label, if any, should be placed in the middle of the path
 	const [middleX, middleY] = fullPath[Math.floor(fullPath.length / 2)]
-	const { x: labelX, y: labelY } = gridToGraphPoint(
-		{ x: middleX, y: middleY },
-		graph.xMin,
-		graph.yMin,
-		gridRatio
-	)
+	// const { x: labelX, y: labelY } = gridToGraphPoint(
+	// 	{ x: middleX, y: middleY },
+	// 	graph.xMin,
+	// 	graph.yMin,
+	// 	gridRatio
+	// )
 
-	const text = label ? (
-		<EdgeText
-			x={labelX}
-			y={labelY}
-			label={label}
-			labelStyle={labelStyle}
-			labelShowBg={labelShowBg}
-			labelBgStyle={labelBgStyle}
-			labelBgPadding={labelBgPadding}
-			labelBgBorderRadius={labelBgBorderRadius}
-		/>
-	) : null
+	// const text = label ? (
+	// 	<EdgeText
+	// 		x={labelX}
+	// 		y={labelY}
+	// 		label={label}
+	// 		labelStyle={labelStyle}
+	// 		labelShowBg={labelShowBg}
+	// 		labelBgStyle={labelBgStyle}
+	// 		labelBgPadding={labelBgPadding}
+	// 		labelBgBorderRadius={labelBgBorderRadius}
+	// 	/>
+	// ) : null
 
 	return (
 		<>
@@ -150,8 +157,49 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 				markerEnd={markerEnd}
 				markerStart={markerStart}
 			/>
-			{text}
+			<foreignObject
+				width={foreignObjectWidth}
+				height={calculatedObjectHeight}
+				x={edgeCenterX - foreignObjectWidth / 2}
+				y={edgeCenterY - calculatedObjectHeight / 2}
+				className="edgebutton-foreignobject"
+				requiredExtensions="http://www.w3.org/1999/xhtml"
+			>
+				<body
+					className="w-100 h-100 d-flex align-items-center justify-content-center text-center zindex-tooltip px-4 rounded tw-text-gray-800"
+					style={{ backgroundColor: "#FFCC00" }}
+					ref={bodyRef}
+				>
+					{label}
+				</body>
+			</foreignObject>
+			{/* {text} */}
 		</>
+		// <>
+		// 	<path
+		// 		id={id}
+		// 		style={style}
+		// 		className="react-flow__edge-path"
+		// 		d={edgePath}
+		// 		markerEnd={markerEnd}
+		// 	/>
+		// 	<foreignObject
+		// 		width={foreignObjectWidth}
+		// 		height={calculatedObjectHeight}
+		// 		x={edgeCenterX - foreignObjectWidth / 2}
+		// 		y={edgeCenterY - calculatedObjectHeight / 2}
+		// 		className="edgebutton-foreignobject"
+		// 		requiredExtensions="http://www.w3.org/1999/xhtml"
+		// 	>
+		// 		<body
+		// 			className="w-100 h-100 d-flex align-items-center justify-content-center text-center zindex-tooltip px-4 rounded tw-text-gray-800"
+		// 			style={{ backgroundColor: "#FFCC00" }}
+		// 			ref={bodyRef}
+		// 		>
+		// 			{label}
+		// 		</body>
+		// 	</foreignObject>
+		// </>
 	)
 })
 PathFindingEdge.displayName = 'PathFindingEdge'
