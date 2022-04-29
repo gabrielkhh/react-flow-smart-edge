@@ -1,6 +1,6 @@
 import React, { memo, useRef, useState } from 'react'
 // import { EdgeText, getSmoothStepPath, getEdgeCenter, EdgeSmoothStepProps } from 'react-flow-renderer'
-import { getEdgeCenter } from 'react-flow-renderer'
+import { EdgeText, getEdgeCenter } from 'react-flow-renderer'
 import { createGrid, getBoundingBoxes, gridToGraphPoint } from '../functions'
 import type {
 	PointInfo,
@@ -131,30 +131,28 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	const svgPathString = drawEdge(source, target, graphPath)
 
 	// The Label, if any, should be placed in the middle of the path
-	// const [middleX, middleY] = fullPath[Math.floor(fullPath.length / 2)]
-	// const { x: labelX, y: labelY } = gridToGraphPoint(
-	// 	{ x: middleX, y: middleY },
-	// 	graph.xMin,
-	// 	graph.yMin,
-	// 	gridRatio
-	// )
+	const [middleX, middleY] = fullPath[Math.floor(fullPath.length / 2)]
+	const { x: labelX, y: labelY } = gridToGraphPoint(
+		{ x: middleX, y: middleY },
+		graph.xMin,
+		graph.yMin,
+		gridRatio
+	)
 
-	console.log(labelStyle + labelShowBg + labelBgStyle +
-		labelBgPadding +
-		labelBgBorderRadius)
+	const text = label ? (
+		<EdgeText
+			x={labelX}
+			y={labelY}
+			label={label}
+			labelStyle={labelStyle}
+			labelShowBg={labelShowBg}
+			labelBgStyle={labelBgStyle}
+			labelBgPadding={labelBgPadding}
+			labelBgBorderRadius={labelBgBorderRadius}
+		/>
+	) : null
 
-	// const text = label ? (
-	// 	<EdgeText
-	// 		x={labelX}
-	// 		y={labelY}
-	// 		label={label}
-	// 		labelStyle={labelStyle}
-	// 		labelShowBg={labelShowBg}
-	// 		labelBgStyle={labelBgStyle}
-	// 		labelBgPadding={labelBgPadding}
-	// 		labelBgBorderRadius={labelBgBorderRadius}
-	// 	/>
-	// ) : null
+	console.log(text ? true : false)
 
 	return (
 		<>
