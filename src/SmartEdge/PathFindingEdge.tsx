@@ -78,6 +78,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	)
 
 	console.log("Testing")
+	setObjectHeight(foreignObjectHeight)
 
 	const source: PointInfo = {
 		x: sourceX,
