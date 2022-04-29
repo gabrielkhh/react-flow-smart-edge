@@ -1,5 +1,6 @@
 import React, { memo, useRef, useState } from 'react'
 // import { EdgeText, getSmoothStepPath, getEdgeCenter, EdgeSmoothStepProps } from 'react-flow-renderer'
+import { getEdgeCenter } from 'react-flow-renderer'
 import { createGrid, getBoundingBoxes, gridToGraphPoint } from '../functions'
 import type {
 	PointInfo,
