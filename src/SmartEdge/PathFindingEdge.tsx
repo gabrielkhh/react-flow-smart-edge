@@ -52,6 +52,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 		options
 	} = props
 
+	// @ts-expect-error
 	const edgePath = getSmoothStepPath({
 		sourceX,
 		sourceY,
@@ -135,7 +136,6 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	})
 
 	// Finally, we can use the graph path to draw the edge
-	// @ts-expect-error
 	const svgPathString = drawEdge(source, target, graphPath)
 
 	// The Label, if any, should be placed in the middle of the path
@@ -166,7 +166,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 			<path
 				style={style}
 				className='react-flow__edge-path'
-				d={edgePath}
+				d={svgPathString}
 				markerEnd={markerEnd}
 				markerStart={markerStart}
 			/>
