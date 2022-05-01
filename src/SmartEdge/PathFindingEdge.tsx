@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from 'react'
+import React, { memo, useRef, useState } from 'react'
 // import { EdgeText, getSmoothStepPath, getEdgeCenter, EdgeSmoothStepProps } from 'react-flow-renderer'
 import { EdgeText, getEdgeCenter, getSmoothStepPath } from 'react-flow-renderer'
 import { createGrid, getBoundingBoxes, gridToGraphPoint } from '../functions'
@@ -65,6 +65,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	const foreignObjectHeight = 50
 
 	const [edgeCenterX, edgeCenterY] = getEdgeCenter({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition })
+	// @ts-expect-error
 	const [calculatedObjectHeight, setObjectHeight] = useState(foreignObjectHeight)
 	const bodyRef = useRef(null)
 
@@ -85,11 +86,6 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 		nodePadding,
 		roundCoordinatesTo
 	)
-
-	useEffect(() => {
-		console.log("Testing")
-		setObjectHeight(foreignObjectHeight)
-	}, [])
 
 	const source: PointInfo = {
 		x: sourceX,
@@ -139,6 +135,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	})
 
 	// Finally, we can use the graph path to draw the edge
+	// @ts-expect-error
 	const svgPathString = drawEdge(source, target, graphPath)
 
 	// The Label, if any, should be placed in the middle of the path
@@ -150,6 +147,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 		gridRatio
 	)
 
+	// @ts-expect-error
 	const text = label ? (
 		<EdgeText
 			x={labelX}
@@ -162,8 +160,6 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 			labelBgBorderRadius={labelBgBorderRadius}
 		/>
 	) : null
-
-	console.log(text ? true : false)
 
 	return (
 		<>
