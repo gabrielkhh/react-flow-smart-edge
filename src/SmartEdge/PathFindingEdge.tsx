@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from 'react'
 // import { EdgeText, getSmoothStepPath, getEdgeCenter, EdgeSmoothStepProps } from 'react-flow-renderer'
-import { EdgeText, getEdgeCenter } from 'react-flow-renderer'
+import { EdgeText, getEdgeCenter, getSmoothStepPath } from 'react-flow-renderer'
 import { createGrid, getBoundingBoxes, gridToGraphPoint } from '../functions'
 import type {
 	PointInfo,
@@ -51,6 +51,15 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 		markerStart,
 		options
 	} = props
+
+	const edgePath = getSmoothStepPath({
+		sourceX,
+		sourceY,
+		sourcePosition,
+		targetX,
+		targetY,
+		targetPosition,
+	})
 
 	const foreignObjectWidth = 125
 	const foreignObjectHeight = 50
@@ -161,7 +170,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 			<path
 				style={style}
 				className='react-flow__edge-path'
-				d={svgPathString}
+				d={edgePath}
 				markerEnd={markerEnd}
 				markerStart={markerStart}
 			/>
