@@ -1,4 +1,4 @@
-import React, { memo, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 // import { EdgeText, getSmoothStepPath, getEdgeCenter, EdgeSmoothStepProps } from 'react-flow-renderer'
 import { EdgeText, getEdgeCenter } from 'react-flow-renderer'
 import { createGrid, getBoundingBoxes, gridToGraphPoint } from '../functions'
@@ -77,8 +77,10 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 		roundCoordinatesTo
 	)
 
-	console.log("Testing")
-	// setObjectHeight(foreignObjectHeight)
+	useEffect(() => {
+		console.log("Testing")
+		setObjectHeight(foreignObjectHeight)
+	}, [])
 
 	const source: PointInfo = {
 		x: sourceX,
