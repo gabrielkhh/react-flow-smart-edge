@@ -65,7 +65,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	const foreignObjectWidth = 125
 	const foreignObjectHeight = 50
 
-	const [edgeCenterX, edgeCenterY] = getEdgeCenter({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition })
+	const [edgeCenterX, edgeCenterY, offsetX, offsetY] = getEdgeCenter({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition })
 	// @ts-expect-error
 	const [calculatedObjectHeight, setObjectHeight] = useState(foreignObjectHeight)
 	const bodyRef = useRef(null)
@@ -160,6 +160,11 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 			labelBgBorderRadius={labelBgBorderRadius}
 		/>
 	) : null
+
+	console.log("offsetX = ", offsetX)
+	console.log("offsetY = ", offsetY)
+	console.log("edgeCenterX = ", edgeCenterX)
+	console.log("edgeCenterY = ", edgeCenterY)
 
 	return (
 		<>
