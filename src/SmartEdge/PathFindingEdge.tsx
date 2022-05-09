@@ -147,7 +147,6 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 		gridRatio
 	)
 
-	// @ts-expect-error
 	const text = label ? (
 		<EdgeText
 			x={labelX}
