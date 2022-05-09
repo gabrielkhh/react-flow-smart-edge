@@ -11,7 +11,7 @@ const BezierConfiguration = {
 	fallback: BezierEdge,
 	generatePath: pathfindingAStarDiagonal
 }
-
+	
 export const SmartBezierEdge = smartEdgeFactory(BezierConfiguration)
 SmartBezierEdge.displayName = 'SmartBezierEdge'
 
