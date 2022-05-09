@@ -188,7 +188,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 					style={{ backgroundColor: "#FFCC00" }}
 					ref={bodyRef}
 				>
-					{label}
+					{text}
 				</body>
 			</foreignObject>
 			{/* {text} */}
