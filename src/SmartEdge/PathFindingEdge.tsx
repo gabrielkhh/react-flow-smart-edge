@@ -151,7 +151,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 		<EdgeText
 			x={labelX}
 			y={labelY}
-			label={label}
+			label={"abcde123"}
 			labelStyle={labelStyle}
 			labelShowBg={labelShowBg}
 			labelBgStyle={labelBgStyle}
