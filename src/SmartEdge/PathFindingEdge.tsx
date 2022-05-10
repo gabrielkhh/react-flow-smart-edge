@@ -168,7 +168,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	const [calculatedObjectHeight, setObjectHeight] = useState(foreignObjectHeight)
 	const bodyRef = useRef(null)
 
-	const [centerX, centerY, osX, osY] = getBezierCenter({sourceX, sourceY, sourcePosition, targetX, targetY,targetPosition})
+	const [centerX, centerY, osX, osY] = getBezierCenter({sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition})
 
 	const {
 		gridRatio,
@@ -279,8 +279,8 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 			<foreignObject
 				width={foreignObjectWidth}
 				height={calculatedObjectHeight}
-				x={centerX + osX}
-				y={centerY + osY}
+				x={centerX - osX}
+				y={centerY - osY}
 				className="edgebutton-foreignobject"
 				requiredExtensions="http://www.w3.org/1999/xhtml"
 			>
