@@ -170,7 +170,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 		<>
 			<path
 				style={style}
-				className='react-flow__edge-path'
+				className='react-flow__edge-path test-p'
 				d={svgPathString}
 				markerEnd={markerEnd}
 				markerStart={markerStart}
