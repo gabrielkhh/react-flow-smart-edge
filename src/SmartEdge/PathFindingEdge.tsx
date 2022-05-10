@@ -1,6 +1,6 @@
 import React, { memo, useRef, useState } from 'react'
 // import { EdgeText, getSmoothStepPath, getEdgeCenter, EdgeSmoothStepProps } from 'react-flow-renderer'
-import { EdgeText, getEdgeCenter, getSmoothStepPath } from 'react-flow-renderer'
+import { EdgeText, getBezierCenter, getSmoothStepPath } from 'react-flow-renderer'
 import { createGrid, getBoundingBoxes, gridToGraphPoint } from '../functions'
 import type {
 	PointInfo,
@@ -65,7 +65,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	const foreignObjectWidth = 125
 	const foreignObjectHeight = 50
 	// @ts-expect-error
-	const [edgeCenterX, edgeCenterY, offsetX, offsetY] = getEdgeCenter({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition })
+	const [edgeCenterX, edgeCenterY, offsetX, offsetY] = getBezierCenter({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition })
 	// @ts-expect-error
 	const [calculatedObjectHeight, setObjectHeight] = useState(foreignObjectHeight)
 	const bodyRef = useRef(null)
