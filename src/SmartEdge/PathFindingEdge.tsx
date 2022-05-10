@@ -167,7 +167,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	// console.log("offsetY = ", offsetY)
 	// console.log("edgeCenterX = ", edgeCenterX)
 	// console.log("edgeCenterY = ", edgeCenterY)
-
+	
 	return (
 		<>
 			<path
@@ -178,11 +178,11 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 				markerStart={markerStart}
 				
 			/>
-			{/* <foreignObject
+			<foreignObject
 				width={foreignObjectWidth}
 				height={calculatedObjectHeight}
-				x={(edgeCenterX + foreignObjectWidth) / 2}
-				y={(edgeCenterY + calculatedObjectHeight) / 2}
+				x={edgeCenterX + offsetX}
+				y={edgeCenterY + offsetY}
 				className="edgebutton-foreignobject"
 				requiredExtensions="http://www.w3.org/1999/xhtml"
 			>
@@ -193,7 +193,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 				>
 					{label}
 				</body>
-			</foreignObject> */}
+			</foreignObject>
 			{/* {text} */}
 		</>
 		// <>
