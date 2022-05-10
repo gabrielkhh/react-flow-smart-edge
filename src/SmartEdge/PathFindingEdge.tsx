@@ -149,11 +149,10 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 		gridRatio
 	)
 
-	// @ts-expect-error
 	const text = label ? (
 		<EdgeText
-			x={labelX}
-			y={labelY}
+			x={333}
+			y={666}
 			label={"abcde1234"}
 			labelStyle={labelStyle}
 			labelShowBg={labelShowBg}
@@ -177,11 +176,11 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 				markerEnd={markerEnd}
 				markerStart={markerStart}
 			/>
-			<foreignObject
+			{/* <foreignObject
 				width={foreignObjectWidth}
 				height={calculatedObjectHeight}
-				x = {333}
-				y = {666}
+				x = {labelX}
+				y = {labelY}
 				className="edgebutton-foreignobject"
 				requiredExtensions="http://www.w3.org/1999/xhtml"
 			>
@@ -192,8 +191,8 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 				>
 					{label}
 				</body>
-			</foreignObject>
-			{/* {text} */}
+			</foreignObject> */}
+			{text}
 		</>
 		// <>
 		// 	<path
