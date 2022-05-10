@@ -170,16 +170,17 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 		<>
 			<path
 				style={style}
-				className='react-flow__edge-path test-p'
+				className='react-flow__edge-path'
 				d={svgPathString}
 				markerEnd={markerEnd}
 				markerStart={markerStart}
+				
 			/>
 			<foreignObject
 				width={foreignObjectWidth}
 				height={calculatedObjectHeight}
-				x={(source.x + target.x) / 2}
-				y={(source.y + target.y) / 2}
+				x={(edgeCenterX + foreignObjectWidth) / 2}
+				y={(edgeCenterY + calculatedObjectHeight) / 2}
 				className="edgebutton-foreignobject"
 				requiredExtensions="http://www.w3.org/1999/xhtml"
 			>
