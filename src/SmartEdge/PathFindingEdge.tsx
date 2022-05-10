@@ -112,7 +112,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 
 	// We then can use the grid representation to do pathfinding
 	const { fullPath, smoothedPath } = generatePath(grid, start, end)
-
+	console.log(fullPath)
 	/*
 	Use the fallback Edge if no path was found.
 	length = 0: no path was found
@@ -139,7 +139,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	const svgPathString = drawEdge(source, target, graphPath)
 
 	// The Label, if any, should be placed in the middle of the path
-	const [middleX, middleY] = fullPath[Math.floor(fullPath.length / 2)]
+	const [middleX, middleY] = graphPath[Math.floor(graphPath.length / 2)]
 	const { x: labelX, y: labelY } = gridToGraphPoint(
 		{ x: middleX, y: middleY },
 		graph.xMin,
