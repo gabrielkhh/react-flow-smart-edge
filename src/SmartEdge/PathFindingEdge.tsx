@@ -150,8 +150,8 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	// @ts-expect-error
 	const text = label ? (
 		<EdgeText
-			x={(source.x + target.x) / 2}
-			y={(source.y + target.y) / 2}
+			x = {labelX}
+			y = {labelY}
 			label={"abcde1234"}
 			labelStyle={labelStyle}
 			labelShowBg={labelShowBg}
@@ -178,8 +178,8 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 			<foreignObject
 				width={foreignObjectWidth}
 				height={calculatedObjectHeight}
-				x = {labelX}
-				y = {labelY}
+				x={(source.x + target.x) / 2}
+				y={(source.y + target.y) / 2}
 				className="edgebutton-foreignobject"
 				requiredExtensions="http://www.w3.org/1999/xhtml"
 			>
