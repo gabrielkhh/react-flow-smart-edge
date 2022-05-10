@@ -168,7 +168,6 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	const [calculatedObjectHeight, setObjectHeight] = useState(foreignObjectHeight)
 	const bodyRef = useRef(null)
 
-	// @ts-expect-error
 	const [centerX, centerY, osX, osY] = getBezierCenter({sourceX, sourceY, sourcePosition, targetX, targetY,targetPosition})
 
 	const {
