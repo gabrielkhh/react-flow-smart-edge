@@ -1,6 +1,6 @@
 import React, { memo, useRef, useState } from 'react'
 // import { EdgeText, getSmoothStepPath, getEdgeCenter, EdgeSmoothStepProps } from 'react-flow-renderer'
-import { EdgeText, getBezierCenter, getSmoothStepPath } from 'react-flow-renderer'
+import { EdgeText, getEdgeCenter, getSmoothStepPath } from 'react-flow-renderer'
 import { createGrid, getBoundingBoxes, gridToGraphPoint } from '../functions'
 import type {
 	PointInfo,
@@ -32,6 +32,104 @@ export interface PathFindingEdgeProps<T = unknown> extends EdgeProps<T> {
 }
 
 export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
+	enum Position {
+		Left = 'left',
+		Top = 'top',
+		Right = 'right',
+		Bottom = 'bottom',
+	}
+
+	interface GetBezierPathParams {
+		sourceX: number;
+		sourceY: number;
+		sourcePosition?: Position;
+		targetX: number;
+		targetY: number;
+		targetPosition?: Position;
+		curvature?: number;
+	}
+	
+	interface GetControlWithCurvatureParams {
+		pos: Position;
+		x1: number;
+		y1: number;
+		x2: number;
+		y2: number;
+		c: number;
+	}
+
+	function calculateControlOffset(distance: number, curvature: number): number {
+	if (distance >= 0) {
+		return 0.5 * distance;
+	} else {
+		return curvature * 25 * Math.sqrt(-distance);
+	}
+	}
+	
+	function getControlWithCurvature({ pos, x1, y1, x2, y2, c }: GetControlWithCurvatureParams): [number, number] {
+	let ctX: number, ctY: number;
+	switch (pos) {
+		case Position.Left:
+		{
+			ctX = x1 - calculateControlOffset(x1 - x2, c);
+			ctY = y1;
+		}
+		break;
+		case Position.Right:
+		{
+			ctX = x1 + calculateControlOffset(x2 - x1, c);
+			ctY = y1;
+		}
+		break;
+		case Position.Top:
+		{
+			ctX = x1;
+			ctY = y1 - calculateControlOffset(y1 - y2, c);
+		}
+		break;
+		case Position.Bottom:
+		{
+			ctX = x1;
+			ctY = y1 + calculateControlOffset(y2 - y1, c);
+		}
+		break;
+	}
+	return [ctX, ctY];
+	}
+
+	function getBezierCenter({
+		sourceX,
+		sourceY,
+		sourcePosition = Position.Bottom,
+		targetX,
+		targetY,
+		targetPosition = Position.Top,
+		curvature = 0.25,
+	}: GetBezierPathParams): [number, number, number, number] {
+		const [sourceControlX, sourceControlY] = getControlWithCurvature({
+		pos: sourcePosition,
+		x1: sourceX,
+		y1: sourceY,
+		x2: targetX,
+		y2: targetY,
+		c: curvature,
+		});
+		const [targetControlX, targetControlY] = getControlWithCurvature({
+		pos: targetPosition,
+		x1: targetX,
+		y1: targetY,
+		x2: sourceX,
+		y2: sourceY,
+		c: curvature,
+		});
+		// cubic bezier t=0.5 mid point, not the actual mid point, but easy to calculate
+		// https://stackoverflow.com/questions/67516101/how-to-find-distance-mid-point-of-bezier-curve
+		const centerX = sourceX * 0.125 + sourceControlX * 0.375 + targetControlX * 0.375 + targetX * 0.125;
+		const centerY = sourceY * 0.125 + sourceControlY * 0.375 + targetControlY * 0.375 + targetY * 0.125;
+		const xOffset = Math.abs(centerX - sourceX);
+		const yOffset = Math.abs(centerY - sourceY);
+		return [centerX, centerY, xOffset, yOffset];
+	}
 	const {
 		sourceX,
 		sourceY,
@@ -65,10 +163,13 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	const foreignObjectWidth = 125
 	const foreignObjectHeight = 50
 	// @ts-expect-error
-	const [edgeCenterX, edgeCenterY, offsetX, offsetY] = getBezierCenter({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition })
+	const [edgeCenterX, edgeCenterY, offsetX, offsetY] = getEdgeCenter({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition })
 	// @ts-expect-error
 	const [calculatedObjectHeight, setObjectHeight] = useState(foreignObjectHeight)
 	const bodyRef = useRef(null)
+
+	// @ts-expect-error
+	const [centerX, centerY, osX, osY] = getBezierCenter({sourceX, sourceY, sourcePosition, targetX, targetY,targetPosition})
 
 	const {
 		gridRatio,
@@ -179,8 +280,8 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 			<foreignObject
 				width={foreignObjectWidth}
 				height={calculatedObjectHeight}
-				x={edgeCenterX}
-				y={edgeCenterY}
+				x={centerX}
+				y={centerY}
 				className="edgebutton-foreignobject"
 				requiredExtensions="http://www.w3.org/1999/xhtml"
 			>
