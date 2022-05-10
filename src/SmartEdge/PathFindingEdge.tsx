@@ -142,6 +142,8 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 
 	// The Label, if any, should be placed in the middle of the path
 	const [middleX, middleY] = fullPath[Math.floor(fullPath.length / 2)]
+	
+	// @ts-expect-error
 	const { x: labelX, y: labelY } = gridToGraphPoint(
 		{ x: middleX, y: middleY },
 		graph.xMin,
