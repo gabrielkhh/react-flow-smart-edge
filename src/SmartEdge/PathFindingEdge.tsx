@@ -64,6 +64,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 
 	const foreignObjectWidth = 125
 	const foreignObjectHeight = 50
+	// @ts-expect-error
 	const [edgeCenterX, edgeCenterY, offsetX, offsetY] = getEdgeCenter({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition })
 	// @ts-expect-error
 	const [calculatedObjectHeight, setObjectHeight] = useState(foreignObjectHeight)
