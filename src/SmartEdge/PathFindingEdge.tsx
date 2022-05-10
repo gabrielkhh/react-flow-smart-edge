@@ -167,7 +167,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	// @ts-expect-error
 	const [calculatedObjectHeight, setObjectHeight] = useState(foreignObjectHeight)
 	const bodyRef = useRef(null)
-
+	// @ts-expect-error
 	const [centerX, centerY, osX, osY] = getBezierCenter({sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition})
 
 	const {
@@ -279,8 +279,8 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 			<foreignObject
 				width={foreignObjectWidth}
 				height={calculatedObjectHeight}
-				x={centerX - osX}
-				y={centerY - osY}
+				x={centerX}
+				y={centerY}
 				className="edgebutton-foreignobject"
 				requiredExtensions="http://www.w3.org/1999/xhtml"
 			>
