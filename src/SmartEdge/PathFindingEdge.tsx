@@ -142,8 +142,6 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 
 	// The Label, if any, should be placed in the middle of the path
 	const [middleX, middleY] = fullPath[Math.floor(fullPath.length / 2)]
-	
-	// @ts-expect-error
 	const { x: labelX, y: labelY } = gridToGraphPoint(
 		{ x: middleX, y: middleY },
 		graph.xMin,
@@ -151,10 +149,11 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 		gridRatio
 	)
 
+	// @ts-expect-error
 	const text = label ? (
 		<EdgeText
-			x={333}
-			y={666}
+			x={labelX}
+			y={labelY}
 			label={"abcde1234"}
 			labelStyle={labelStyle}
 			labelShowBg={labelShowBg}
@@ -178,11 +177,11 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 				markerEnd={markerEnd}
 				markerStart={markerStart}
 			/>
-			{/* <foreignObject
+			<foreignObject
 				width={foreignObjectWidth}
 				height={calculatedObjectHeight}
-				x = {labelX}
-				y = {labelY}
+				x = {500}
+				y = {500}
 				className="edgebutton-foreignobject"
 				requiredExtensions="http://www.w3.org/1999/xhtml"
 			>
@@ -193,7 +192,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 				>
 					{label}
 				</body>
-			</foreignObject> */}
+			</foreignObject>
 			{text}
 		</>
 		// <>
