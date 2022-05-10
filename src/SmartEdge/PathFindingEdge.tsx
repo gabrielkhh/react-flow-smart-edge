@@ -62,14 +62,12 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 		targetPosition,
 	})
 
-	// @ts-expect-error
 	const foreignObjectWidth = 125
 	const foreignObjectHeight = 50
 	// @ts-expect-error
 	const [edgeCenterX, edgeCenterY, offsetX, offsetY] = getEdgeCenter({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition })
 	// @ts-expect-error
 	const [calculatedObjectHeight, setObjectHeight] = useState(foreignObjectHeight)
-	// @ts-expect-error
 	const bodyRef = useRef(null)
 
 	const {
@@ -143,7 +141,6 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 	// The Label, if any, should be placed in the middle of the path
 	const [middleX, middleY] = fullPath[Math.floor(fullPath.length / 2)]
 	
-	// @ts-expect-error
 	const { x: labelX, y: labelY } = gridToGraphPoint(
 		{ x: middleX, y: middleY },
 		graph.xMin,
