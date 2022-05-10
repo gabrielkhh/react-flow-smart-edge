@@ -193,7 +193,7 @@ export const PathFindingEdge = memo((props: PathFindingEdgeProps) => {
 					{label}
 				</body>
 			</foreignObject>
-			{text}
+			{/* {text} */}
 		</>
 		// <>
 		// 	<path
